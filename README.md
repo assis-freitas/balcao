@@ -63,7 +63,7 @@ frontend/src/app/
 
 ## Running locally
 
-Requires Java 21, Node 22+ and Docker (or Podman, see below).
+Requires Java 21, Node 24 and Docker (or Podman, see below).
 
 ```bash
 cd backend && ./gradlew bootTestRun     # API on :8080, Postgres in a container
