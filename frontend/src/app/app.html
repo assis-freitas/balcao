@@ -1,0 +1,60 @@
+<header class="topbar">
+  <span class="brand"><span class="logo" aria-hidden="true">B</span> Balcão</span>
+  <span class="muted">Caixa da loja</span>
+</header>
+
+<main>
+  <nav class="month" aria-label="Mês">
+    <button type="button" class="icon" (click)="moveMonth(-1)" aria-label="Mês anterior">‹</button>
+    <h1>{{ title() }}</h1>
+    <button
+      type="button"
+      class="icon"
+      (click)="moveMonth(1)"
+      [disabled]="isCurrentMonth()"
+      aria-label="Próximo mês"
+    >
+      ›
+    </button>
+  </nav>
+
+  @if (statement.error()) {
+    <p class="card error" role="alert">
+      Não foi possível carregar o caixa. O backend está rodando?
+    </p>
+  } @else {
+    <section class="summary" aria-label="Resumo do mês">
+      <div class="card stat">
+        <span class="label">Entradas</span>
+        <strong class="income">{{ formatBrl(statement.value()?.balance?.income ?? 0) }}</strong>
+      </div>
+      <div class="card stat">
+        <span class="label">Saídas</span>
+        <strong class="expense">{{ formatBrl(statement.value()?.balance?.expense ?? 0) }}</strong>
+      </div>
+      <div class="card stat">
+        <span class="label">Saldo</span>
+        <strong [class.expense]="(statement.value()?.balance?.net ?? 0) < 0">{{
+          formatBrl(statement.value()?.balance?.net ?? 0)
+        }}</strong>
+      </div>
+    </section>
+  }
+
+  <div class="columns">
+    <section aria-labelledby="new-entry">
+      <h2 id="new-entry">Novo lançamento</h2>
+      <app-entry-form (recorded)="reload()" />
+    </section>
+
+    <section aria-labelledby="entries" class="card">
+      <h2 id="entries">
+        Lançamentos
+        @if (statement.isLoading()) {
+          <span class="muted small">atualizando…</span>
+        }
+      </h2>
+      <app-entry-list [entries]="statement.value()?.entries ?? []" (changed)="reload()" />
+    </section>
+  </div>
+</main>

@@ -1,0 +1,117 @@
+:root {
+  color-scheme: light dark;
+  --bg: #f6f5f2;
+  --surface: #ffffff;
+  --surface-2: #efede8;
+  --border: #e3e0d8;
+  --text: #1d1b17;
+  --muted: #6d675c;
+  --accent: #1f6f5c;
+  --accent-ink: #ffffff;
+  --income: #17734f;
+  --income-bg: #dcf2e7;
+  --expense: #b3372c;
+  --expense-bg: #f8e0dc;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #151412;
+    --surface: #1e1c19;
+    --surface-2: #2a2723;
+    --border: #34312b;
+    --text: #f1eee8;
+    --muted: #a39d91;
+    --accent: #4fb596;
+    --accent-ink: #0e1a16;
+    --income: #5cc995;
+    --income-bg: #173326;
+    --expense: #f08377;
+    --expense-bg: #3a1d19;
+  }
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font:
+    15px/1.5 system-ui,
+    -apple-system,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+.muted {
+  color: var(--muted);
+}
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 0.8rem;
+  padding: 1rem 1.1rem;
+}
+input,
+select,
+button {
+  font: inherit;
+  color: inherit;
+}
+input,
+select {
+  width: 100%;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+}
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+button {
+  cursor: pointer;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+button.primary,
+button.danger {
+  border: 0;
+  border-radius: 0.5rem;
+  padding: 0.6rem 1rem;
+  font-weight: 600;
+}
+button.primary {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+button.danger {
+  background: var(--expense);
+  color: #fff;
+}
+button.link {
+  border: 0;
+  background: none;
+  padding: 0.25rem;
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  font-size: 0.85rem;
+}
+button.link:hover {
+  color: var(--text);
+}
+button.icon {
+  width: 2.2rem;
+  height: 2.2rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--surface);
+  font-size: 1.2rem;
+  line-height: 1;
+}

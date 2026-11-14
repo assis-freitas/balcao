@@ -1,0 +1,79 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="card">
+  <div class="segmented" role="radiogroup" aria-label="Tipo de lançamento">
+    <button
+      type="button"
+      role="radio"
+      class="income"
+      [attr.aria-checked]="form.controls.type.value === 'INCOME'"
+      (click)="setType('INCOME')"
+    >
+      Entrada
+    </button>
+    <button
+      type="button"
+      role="radio"
+      class="expense"
+      [attr.aria-checked]="form.controls.type.value === 'EXPENSE'"
+      (click)="setType('EXPENSE')"
+    >
+      Saída
+    </button>
+  </div>
+
+  <div class="grid">
+    <label class="field amount">
+      <span>Valor</span>
+      <div class="prefixed">
+        <span aria-hidden="true">R$</span>
+        <input formControlName="amount" inputmode="decimal" placeholder="0,00" autocomplete="off" />
+      </div>
+    </label>
+
+    <label class="field">
+      <span>Data</span>
+      <input type="date" formControlName="occurredOn" [max]="today" />
+    </label>
+
+    <label class="field wide">
+      <span>Descrição</span>
+      <input
+        formControlName="description"
+        maxlength="140"
+        placeholder="Ex.: venda balcão, conta de luz"
+      />
+    </label>
+
+    <label class="field">
+      <span>Categoria</span>
+      <input formControlName="category" list="categories" maxlength="40" />
+      <datalist id="categories">
+        @for (category of categories(); track category) {
+          <option [value]="category"></option>
+        }
+      </datalist>
+    </label>
+
+    <label class="field">
+      <span>Forma de pagamento</span>
+      <select formControlName="paymentMethod">
+        @for (method of methods; track method.value) {
+          <option [value]="method.value">{{ method.label }}</option>
+        }
+      </select>
+    </label>
+  </div>
+
+  @if (error()) {
+    <p class="error" role="alert">{{ error() }}</p>
+  }
+
+  <button type="submit" class="primary" [disabled]="saving()">
+    {{
+      saving()
+        ? 'Lançando…'
+        : form.controls.type.value === 'INCOME'
+          ? 'Lançar entrada'
+          : 'Lançar saída'
+    }}
+  </button>
+</form>

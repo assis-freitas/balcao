@@ -1,0 +1,61 @@
+@if (entries().length === 0) {
+  <p class="empty">Nenhum lançamento neste mês.</p>
+} @else {
+  <ul>
+    @for (entry of entries(); track entry.id) {
+      <li [class.reversed]="entry.reversed">
+        <div class="row">
+          <time [attr.datetime]="entry.occurredOn">{{
+            entry.occurredOn + 'T00:00:00' | date: 'dd/MM'
+          }}</time>
+          <div class="what">
+            <span class="description">{{ entry.description }}</span>
+            <span class="meta">
+              {{ entry.category }} · {{ paymentLabel(entry.paymentMethod) }}
+              @if (entry.reversed) {
+                <span class="tag">estornado</span>
+              }
+              @if (entry.reversalOf) {
+                <span class="tag">estorno</span>
+              }
+            </span>
+          </div>
+          <span
+            class="amount"
+            [class.income]="entry.type === 'INCOME'"
+            [class.expense]="entry.type === 'EXPENSE'"
+          >
+            {{ entry.type === 'INCOME' ? '+' : '−' }} {{ formatBrl(entry.amount) }}
+          </span>
+          @if (!entry.reversed && !entry.reversalOf && reversing() !== entry.id) {
+            <button
+              type="button"
+              class="link"
+              (click)="startReversal(entry)"
+              [attr.aria-label]="'Estornar ' + entry.description"
+            >
+              Estornar
+            </button>
+          }
+        </div>
+
+        @if (reversing() === entry.id) {
+          <form class="confirm" (ngSubmit)="confirmReversal(entry)">
+            <input
+              name="reason"
+              [(ngModel)]="reason"
+              placeholder="Motivo (opcional)"
+              maxlength="100"
+              aria-label="Motivo do estorno"
+            />
+            <button type="submit" class="danger" [disabled]="busy()">Confirmar estorno</button>
+            <button type="button" class="link" (click)="reversing.set(null)">Cancelar</button>
+            @if (error()) {
+              <p class="error" role="alert">{{ error() }}</p>
+            }
+          </form>
+        }
+      </li>
+    }
+  </ul>
+}

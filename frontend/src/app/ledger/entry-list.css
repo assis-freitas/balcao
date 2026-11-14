@@ -1,0 +1,93 @@
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+li {
+  border-bottom: 1px solid var(--border);
+  padding: 0.75rem 0;
+}
+li:last-child {
+  border-bottom: 0;
+}
+.row {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto auto;
+  align-items: center;
+  gap: 0.75rem;
+}
+time {
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-variant-numeric: tabular-nums;
+}
+.what {
+  display: grid;
+  min-width: 0;
+}
+.description {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.meta {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+.tag {
+  display: inline-block;
+  margin-left: 0.3rem;
+  padding: 0 0.4rem;
+  border-radius: 999px;
+  background: var(--surface-2);
+  font-size: 0.72rem;
+}
+.amount {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.income {
+  color: var(--income);
+}
+.expense {
+  color: var(--expense);
+}
+.reversed .description,
+.reversed .amount {
+  text-decoration: line-through;
+  opacity: 0.55;
+}
+.confirm {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+  padding-left: 3.75rem;
+}
+.confirm input {
+  flex: 1 1 12rem;
+}
+.error {
+  flex-basis: 100%;
+  margin: 0;
+  color: var(--expense);
+  font-size: 0.85rem;
+}
+.empty {
+  color: var(--muted);
+  text-align: center;
+  padding: 2rem 0;
+}
+@media (max-width: 480px) {
+  .row {
+    grid-template-columns: 2.6rem 1fr auto;
+  }
+  .row .link {
+    grid-column: 2 / -1;
+    justify-self: start;
+  }
+  .confirm {
+    padding-left: 0;
+  }
+}

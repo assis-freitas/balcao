@@ -1,0 +1,16 @@
+# Backend
+backend/.gradle/
+backend/build/
+backend/bin/
+*.class
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.angular/
+
+# Editors / OS
+.idea/
+.vscode/
+*.iml
+.DS_Store
